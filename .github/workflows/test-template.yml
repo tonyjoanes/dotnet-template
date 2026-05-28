@@ -1,0 +1,45 @@
+name: Test Template
+
+on:
+  push:
+    branches: [ main, 'claude/**' ]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet: [ '8.0.x', '9.0.x' ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET ${{ matrix.dotnet }}
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ matrix.dotnet }}
+
+      - name: Install template
+        run: dotnet new install .
+
+      - name: Generate — defaults
+        run: dotnet new company-webapi -n TestApp.Default -o /tmp/TestApp.Default
+
+      - name: Build — defaults
+        run: dotnet build /tmp/TestApp.Default --configuration Release
+
+      - name: Generate — with Postgres health check
+        run: dotnet new company-webapi -n TestApp.Pg --add-postgres-health-check -o /tmp/TestApp.Pg
+
+      - name: Build — Postgres variant
+        run: dotnet build /tmp/TestApp.Pg --configuration Release
+
+      - name: Generate — without customer sample
+        run: dotnet new company-webapi -n TestApp.Bare --include-customer-sample false -o /tmp/TestApp.Bare
+
+      - name: Build — no sample variant
+        run: dotnet build /tmp/TestApp.Bare --configuration Release
+
+      - name: Uninstall template
+        run: dotnet new uninstall .

@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Tony Joanes",
+  "classifications": [ "Web", "API", "WebAPI" ],
+  "identity": "Company.WebApi.Template",
+  "name": "Company Web API",
+  "shortName": "company-webapi",
+  "description": "Opinionated Web API template: OpenTelemetry, Serilog, LanguageExt functional layer, Health Checks, ProblemDetails, CORS, Correlation ID, vertical slice modules.",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "preferNameDirectory": true,
+  "sourceName": "Company.WebApi.Template",
+  "symbols": {
+    "Framework": {
+      "type": "parameter",
+      "description": "Target framework for the project.",
+      "datatype": "choice",
+      "choices": [
+        { "choice": "net8.0", "description": "Target .NET 8.0" },
+        { "choice": "net9.0", "description": "Target .NET 9.0" }
+      ],
+      "defaultValue": "net9.0",
+      "replaces": "net9.0"
+    },
+    "addSqlServerHealthCheck": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Include SQL Server health check."
+    },
+    "addPostgresHealthCheck": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Include PostgreSQL health check."
+    },
+    "addRedisHealthCheck": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Include Redis health check."
+    },
+    "includeCustomerSample": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true",
+      "description": "Include the Customer sample feature module."
+    }
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "condition": "(!includeCustomerSample)",
+          "exclude": [ "Features/Customers/**" ]
+        }
+      ]
+    }
+  ]
+}
