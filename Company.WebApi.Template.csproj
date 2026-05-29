@@ -6,6 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <RootNamespace>Company.WebApi.Template</RootNamespace>
+    <!-- Enable all built-in Roslyn security + correctness analyzers -->
+    <AnalysisMode>All</AnalysisMode>
+    <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
 
   <!-- Functional -->
@@ -45,6 +48,14 @@
   <!-- OpenAPI -->
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
+  </ItemGroup>
+
+  <!-- Security: SAST Roslyn analyzer — runs at build time, zero runtime cost -->
+  <ItemGroup>
+    <PackageReference Include="SecurityCodeScan.VS2019" Version="5.6.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

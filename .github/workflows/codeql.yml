@@ -1,0 +1,41 @@
+name: CodeQL
+
+on:
+  push:
+    branches: [ main, 'claude/**' ]
+  pull_request:
+  schedule:
+    # Weekly scan every Monday at 08:00 UTC
+    - cron: '0 8 * * 1'
+
+jobs:
+  analyze:
+    name: Analyze (csharp)
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: csharp
+          # Use the security-extended query suite for broader coverage
+          queries: security-extended
+
+      - name: Build for CodeQL
+        run: dotnet build Company.WebApi.Template.csproj --configuration Release
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: '/language:csharp'

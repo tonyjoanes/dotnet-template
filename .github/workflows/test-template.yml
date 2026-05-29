@@ -41,5 +41,13 @@ jobs:
       - name: Build — no sample variant
         run: dotnet build /tmp/TestApp.Bare --configuration Release
 
+      - name: Check for vulnerable packages (SCA)
+        run: |
+          dotnet list /tmp/TestApp.Default package --vulnerable --include-transitive 2>&1 | tee /tmp/vuln.txt
+          if grep -q "has the following vulnerable packages" /tmp/vuln.txt; then
+            echo "Vulnerable NuGet packages detected — failing build."
+            exit 1
+          fi
+
       - name: Uninstall template
         run: dotnet new uninstall .

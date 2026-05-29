@@ -1,5 +1,12 @@
 # Company Web API Template
 
+[![Build](https://github.com/tonyjoanes/dotnet-template/actions/workflows/test-template.yml/badge.svg)](https://github.com/tonyjoanes/dotnet-template/actions/workflows/test-template.yml)
+[![CodeQL](https://github.com/tonyjoanes/dotnet-template/actions/workflows/codeql.yml/badge.svg)](https://github.com/tonyjoanes/dotnet-template/actions/workflows/codeql.yml)
+[![NuGet Vulnerabilities](https://img.shields.io/badge/SCA-dotnet%20vuln%20scan-blue)](https://github.com/tonyjoanes/dotnet-template/actions/workflows/test-template.yml)
+[![Dependabot](https://img.shields.io/badge/Dependabot-enabled-2cbe4e?logo=dependabot)](https://github.com/tonyjoanes/dotnet-template/blob/main/.github/dependabot.yml)
+[![SecurityCodeScan](https://img.shields.io/badge/SAST-SecurityCodeScan-orange)](https://security-code-scan.github.io/)
+[![.NET](https://img.shields.io/badge/.NET-8%20%7C%209-512BD4?logo=dotnet)](https://dotnet.microsoft.com/)
+
 An opinionated `dotnet new` template for ASP.NET Core Web API projects.
 
 ## What's included
@@ -116,6 +123,20 @@ services:
 ```
 
 Set `Observability:OtlpEndpoint` to `http://localhost:4317` in `appsettings.Development.json`.
+
+## Security scanning
+
+Four layers of security tooling, all free:
+
+| Tool | Type | When |
+|---|---|---|
+| `SecurityCodeScan.VS2019` | SAST | Every `dotnet build` — Roslyn analyzer catches SQL injection, XSS, weak crypto, etc. |
+| .NET built-in analyzers (`AnalysisMode=All`) | SAST | Every `dotnet build` — correctness + security rules from the SDK |
+| `dotnet list package --vulnerable` | SCA | CI — fails the build if any NuGet dependency has a known CVE |
+| CodeQL | SAST | CI on push/PR + weekly schedule — deep logic-flaw analysis via GitHub |
+| Dependabot | SCA | Weekly PRs when NuGet packages or Actions have new CVEs |
+
+SecurityCodeScan runs locally with no setup — you will see analyzer warnings in your IDE and build output the same as any other compiler warning.
 
 ## Uninstall
 
