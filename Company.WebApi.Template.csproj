@@ -47,7 +47,7 @@
 
   <!-- OpenAPI -->
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.16" />
   </ItemGroup>
 
   <!-- Security: SAST Roslyn analyzer — runs at build time, zero runtime cost -->
