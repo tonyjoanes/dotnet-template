@@ -38,7 +38,7 @@
     <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="8.0.2" />
     <!-- #endif -->
     <!-- #if (addPostgresHealthCheck) -->
-    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="8.0.2" />
+    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="9.0.0" />
     <!-- #endif -->
     <!-- #if (addRedisHealthCheck) -->
     <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="8.0.2" />
