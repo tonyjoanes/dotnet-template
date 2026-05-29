@@ -35,7 +35,7 @@
   <ItemGroup>
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="8.0.2" />
     <!-- #if (addSqlServerHealthCheck) -->
-    <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="8.0.2" />
+    <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="9.0.0" />
     <!-- #endif -->
     <!-- #if (addPostgresHealthCheck) -->
     <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="8.0.2" />
